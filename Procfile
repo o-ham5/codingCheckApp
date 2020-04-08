@@ -1,1 +1,1 @@
-web: gunicorn codingCheckApp.wsgi --log-file -
+web: gunicorn codingCheckProject.wsgi --log-file -
