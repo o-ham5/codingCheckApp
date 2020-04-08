@@ -1,0 +1,30 @@
+{% extends 'codingCheckApp/base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div>
+    <h3>{{ post.title }}</h3>
+    <p>{{ post.problem_text | linebreaksbr }}</p>
+    <hr>
+    <p>{{ post.input_text | linebreaksbr }}</p>
+    <hr>
+    {% if post.input_code %}
+        <p>入力は以下のフォーマットで与えられます。</p>
+        <p>{{ post.input_code | linebreaksbr }}</p>
+    {% endif %}
+    <hr>
+    <p>{{ post.output_text | linebreaksbr }}</p>
+    <hr>
+    {% if post.output_code %}
+        <p>出力は以下のフォーマットで与えられます。</p>
+        <p>{{ post.output_code | linebreaksbr }}</p>
+    {% endif %}
+    <hr>
+    <form action="{% url 'submit_code' pk=post.pk %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>言語: {{ form.language }}</p>
+        <p>コード{{ form.file }}</p>
+        <button type="submit">送信</button>
+    </form>
+</div>
+{% endblock %}

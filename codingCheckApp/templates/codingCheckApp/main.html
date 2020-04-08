@@ -1,0 +1,12 @@
+{% extends 'codingCheckApp/base.html' %}
+{% block title %}メインページ{% endblock %}
+
+{% block content %}
+<div>
+    {% for post in posts %}
+        {% if forloop.counter < 4 %}
+        <p><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></p>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

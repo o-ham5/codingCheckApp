@@ -1,0 +1,32 @@
+from django import forms
+from .models import Post, SubmitCode
+
+
+class PostForm(forms.ModelForm):
+
+    class Meta:                       
+        model = Post                  # 使うモデルを指定
+        fields = ('title', 
+        'problem_text', 
+        'input_text', 
+        'input_code', 
+        'output_text', 
+        'output_code', 
+        'sample_input1', 
+        'sample_output1', 
+        'sample_input2', 
+        'sample_output2', 
+        'sample_input3', 
+        'sample_output3', 
+        'sample_input4', 
+        'sample_output4', 
+        'sample_input5', 
+        'sample_output5')
+        # widgets = {
+        #     'text': forms.Textarea(attrs={'placeholder': 'Markdown形式で書いてください。'})
+        # }
+
+class SubmitCodeForm(forms.ModelForm):
+    class Meta:
+        model = SubmitCode
+        fields = ('language', 'file', )
