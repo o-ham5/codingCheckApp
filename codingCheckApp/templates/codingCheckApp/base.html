@@ -9,17 +9,24 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'fontawesome-free-5.9.0-web/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/prism.css' %}">
+    <link href="https://fonts.googleapis.com/earlyaccess/nicomoji.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+    
 </head>
 <body>
-    <header>
-        <h1>コーディングテスト</h1>
-    </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
+    <div id="all-wrapper">
+        <header>
+            <h1>コーディングテスト</h1>
+        </header>
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
     <footer>
-        <p>フッター</p>
+        <p>コーディングテスト</h２>
     </footer>
 
     <div id="page-top"><a href="#"><i class="fas fa-arrow-up"></i></a></div>

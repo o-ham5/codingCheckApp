@@ -1,0 +1,53 @@
+/* ========================================
+    post-detail
+========================================= */
+
+#post-detail-wrapper {
+  margin: 50px 0;
+  font-size: 0.8rem;
+}
+
+#post-title {
+  border-left: 5px solid skyblue;
+  background-color: lavender;
+  padding: 10px;
+}
+
+#post-main {
+  padding: 20px;
+}
+
+.post-subtitle {
+  font-size: 1.3rem;
+  border-bottom: 2px solid turquoise;
+}
+
+.post-subsubtitle {
+  font-size: 1.1rem;
+}
+
+.post-item {
+  margin-top: 50px;
+}
+
+#post-problem-text {
+  /* margin-top: 50px; */
+}
+
+#problem-content {
+  /* padding: 20px; */
+}
+
+/* label > input {
+  display: none;
+}
+label {
+  width: 70%;
+  height: 150px;
+  font-size: 0.5rem;
+  color: #aaa;
+  background-color: #ddd;
+  line-height: 150px;
+  text-align: center;
+  border: dashed 3px #aaa;
+} */

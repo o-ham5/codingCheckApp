@@ -1,0 +1,97 @@
+/* ========================================
+    基本設定
+========================================= */
+
+/* ========================================
+    基本設定 -> フォント
+========================================= */
+
+.maruGothic {
+  font-family: "Tsukushi A Round Gothic", "筑紫A丸ゴシック";
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* ========================================
+    基本設定 -> リンク
+========================================= */
+
+a.link-green {
+  font-size: 1.2rem;
+  color: mediumseagreen;
+}
+
+/* ========================================
+    基本設定 -> clearfix
+========================================= */
+
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+/* ========================================
+    Body
+========================================= */
+
+body {
+  font-family: "Rounded Mplus 1c", sans-serif;
+  background: url(../images/b082.jpg);
+}
+
+#all-wrapper {
+  width: 90%;
+  margin: 50px auto 0;
+}
+
+/* ========================================
+    header
+========================================= */
+
+header h1 {
+  text-align: center;
+  font-family: "Nico Moji";
+  font-size: 3rem;
+}
+
+/* ========================================
+    footer
+========================================= */
+
+footer {
+  background-color: #999;
+  height: 100px;
+}
+
+/* ========================================
+    ページトップボタン
+========================================= */
+
+#page-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  font-size: 200%;
+}
+
+#page-top a {
+  display: block;
+  background: #fff;
+  color: #666;
+  width: 50px;
+  height: 50px;
+  /* padding: 7px 0; */
+  text-align: center;
+  text-decoration: none;
+  border: solid 3px #666;
+  border-radius: 30px;
+}
+
+#page-top a:hover {
+  background: #999;
+  text-decoration: none;
+}
