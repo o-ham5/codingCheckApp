@@ -45,7 +45,7 @@ body {
 
 #all-wrapper {
   width: 90%;
-  margin: 50px auto 0;
+  margin: 120px auto 0;
 }
 
 /* ========================================
@@ -57,6 +57,35 @@ header h1 {
   font-family: "Nico Moji";
   font-size: 3rem;
 }
+
+/* ========================================
+    header -> nav
+========================================= */
+
+.navbar {
+  background-color: #33383c;
+  height: 8%;
+}
+
+/* #navbarNav {
+  background-color: skyblue;
+} */
+
+div.nav {
+  width: 100%;
+  margin-right: 20px;
+}
+
+.navbar-dark .navbar-nav :not(.active) .nav-link.user,
+.navbar-dark .navbar-nav :not(.active) .nav-link.user:hover {
+  text-decoration: none;
+  color: white;
+}
+
+/* 
+.navbar-dark .navbar-nav :not(.active) .nav-link {
+  color: black;
+} */
 
 /* ========================================
     footer

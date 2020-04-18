@@ -35,6 +35,7 @@
         </div>
         <div id="post-submit" class="post-item">
             <p class="post-subtitle">コード提出</p>
+            <p>ユーザ名: {{ user }}</p>
             <form action="{% url 'submit_code' pk=post.pk %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <p>言語: {{ form.language }}</p>
