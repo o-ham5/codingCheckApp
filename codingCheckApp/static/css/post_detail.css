@@ -20,6 +20,8 @@
 .post-subtitle {
   font-size: 1.3rem;
   border-bottom: 2px solid turquoise;
+  padding-left: 3%;
+  margin-bottom: 40px;
 }
 
 .post-subsubtitle {
@@ -30,24 +32,24 @@
   margin-top: 50px;
 }
 
-#post-problem-text {
-  /* margin-top: 50px; */
+.post-contents {
+  width: 95%;
+  margin: 0 auto;
 }
 
-#problem-content {
-  /* padding: 20px; */
+#post-submit-contents {
+  font-size: 1rem;
 }
 
-/* label > input {
-  display: none;
+#post-submit-contents .row {
+  margin-bottom: 10px;
 }
-label {
-  width: 70%;
-  height: 150px;
-  font-size: 0.5rem;
-  color: #aaa;
-  background-color: #ddd;
-  line-height: 150px;
-  text-align: center;
-  border: dashed 3px #aaa;
-} */
+
+#post-submit-contents button {
+  padding: 3px 20px;
+  margin-left: 150px;
+}
+
+#post-submit-contents button:hover {
+  cursor: pointer;
+}

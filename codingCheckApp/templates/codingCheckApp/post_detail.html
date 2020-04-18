@@ -3,47 +3,80 @@
 
 
 {% block content %}
+{{tmp}}
 <div id="post-detail-wrapper">
     <h3 id="post-title">{{ post.title }}</h3>
     <div id="post-main">
         <div id="post-problem-text" class="post-item">
             <p class="post-subtitle">問題</p>
-            <p id="problem-content">{{ post.problem_text | linebreaksbr }}</p>
+            <div class="post-contents">
+                <p id="problem-content">{{ post.problem_text | linebreaksbr }}</p>
+            </div>
         </div>
         <div id="post-input-text" class="post-item">
             <p class="post-subtitle">入力説明</p>
-            <p>{{ post.input_text | linebreaksbr }}</p>
+            <div class="post-contents">
+                <p>{{ post.input_text | linebreaksbr }}</p>
+            </div>
         </div>
         <div id="post-output-text" class="post-item">
             <p class="post-subtitle">出力説明</p>
-            <p>{{ post.output_text | linebreaksbr }}</p>
+            <div class="post-contents">
+                <p>{{ post.output_text | linebreaksbr }}</p>
+            </div>
         </div>
         <div id="post-inout-format" class="post-item">
             <p class="post-subtitle">入出力フォーマット</p>
-            {% if post.input_code %}
-                <p class="post-subsubtitle">< 入力説明 ></p>
-                <p>入力は以下のフォーマットで与えられます。</p>
-                <p>{{ post.input_code | linebreaksbr }}</p>
-            {% endif %}
-            
-            {% if post.output_code %}
-                <p class="post-subsubtitle">< 出力説明 ></p>
-                <p>出力は以下のフォーマットで与えられます。</p>
-                <p>{{ post.output_code | linebreaksbr }}</p>
-            {% endif %}
-        
+            <div class="post-contents">
+                {% if post.input_code %}
+                    <p class="post-subsubtitle">< 入力説明 ></p>
+                    <p>入力は以下のフォーマットで与えられます。</p>
+                    <p>{{ post.input_code | linebreaksbr }}</p>
+                {% endif %}
+                
+                {% if post.output_code %}
+                    <p class="post-subsubtitle">< 出力説明 ></p>
+                    <p>出力は以下のフォーマットで与えられます。</p>
+                    <p>{{ post.output_code | linebreaksbr }}</p>
+                {% endif %}
+            </div>
         </div>
         <div id="post-submit" class="post-item">
             <p class="post-subtitle">コード提出</p>
-            <p>ユーザ名: {{ user }}</p>
-            <form action="{% url 'submit_code' pk=post.pk %}" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                <p>言語: {{ form.language }}</p>
-                <p>コード</p>
-                <label for="id_file">{{ form.file }}</label>
-                <br>
-                <button type="submit">送信</button>
-            </form>
+            <div id="post-submit-contents" class="post-contents">
+                <form action="{% url 'submit_code' pk=post.pk %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-2">
+                                ユーザ名:
+                            </div>
+                            <div class="col-4">
+                                {{ user }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                言語:
+                            </div>
+                            <div class="col-4">
+                                {{ form.language }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                コード:
+                            </div>
+                            <div class="col-4">
+                                <label for="id_file">{{ form.file }}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit">送信</button>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}
