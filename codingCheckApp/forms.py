@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, SubmitCode
+from .models import Post, SubmitCode, language_list
 
 
 class PostForm(forms.ModelForm):
@@ -27,6 +27,17 @@ class PostForm(forms.ModelForm):
         # }
 
 class SubmitCodeForm(forms.ModelForm):
+
+    # <input>, <select>タグにform属性を入れるための処理
+    file = forms.FileField(
+        widget=forms.ClearableFileInput(attrs={'form': 'submit-code'})
+    )
+    language = forms.CharField(
+        widget=forms.Select(attrs={'form': 'submit-code'}, choices=language_list)
+    )
     class Meta:
         model = SubmitCode
         fields = ('language', 'file', )
+        widgets = {
+            # 'language': forms.CharField(attrs={'id': 'submit-code'}),
+        }
