@@ -20,3 +20,12 @@
 #posts .post a {
   color: limegreen;
 }
+
+#posts .score {
+  text-align: left;
+  float: left;
+}
+
+.ranking-link {
+  text-align: right;
+}

@@ -18,8 +18,15 @@ def Main(request):
 @login_required
 def PostList(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+    user = request.user
 
-    return render(request, 'codingCheckApp/post_list.html', {'posts': posts})
+    scores = []
+    for post in posts:
+        score_model = Score.objects.filter(user=user, post=post)[0]
+        score = score_model.score
+        scores.append(score)
+
+    return render(request, 'codingCheckApp/post_list.html', {'posts_scores': zip(posts, scores)})
     
 @login_required
 def PostDetail(request, pk):
@@ -171,7 +178,7 @@ def calc_score(method, output):
     が最終的なスコアとする
     """
     if method == "equality":
-        acc_rate = sum([1 for b in output if b]) / len(output)
+        acc_rate = int((sum([1 for b in output if b]) / len(output)) *100)
 
     if method == "estimation":
         pass
