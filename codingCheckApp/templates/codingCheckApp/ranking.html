@@ -1,0 +1,15 @@
+{% extends 'codingCheckApp/base.html' %}
+{% block title %}{{ post.title }} : ランキング{% endblock %}
+
+{% block content %}
+<div>
+    <h3>{{ post.title }} : ランキング</h3>
+    {% for k, score in scores %}
+        <p>rank {{k | add:"1"}}: {{ score.user }}</p>
+        <p>score: {{ score.score }}</p>
+        <hr>
+    {% endfor %}
+</div>
+
+<div style="margin-bottom: 400px;"></div>
+{% endblock %}

@@ -1,0 +1,196 @@
+body {
+  background-color: #111;
+}
+
+.tateiwa {
+  display: block;
+  width: 800px;
+  height: 100px;
+  color: #eee;
+  font-size: 68px;
+  font-family: arial;
+  font-weight: bold;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 150px;
+}
+
+.tateiwa .text {
+  display: block;
+  width: inherit;
+  height: inherit;
+  color: #eee;
+  font-size: 68px;
+  font-family: arial;
+  font-weight: bold;
+  left: 2px;
+  top: 0px;
+  position: absolute;
+  overflow: hidden;
+  animation-name: textBlink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.message {
+  display: block;
+  width: 600px;
+  height: 100px;
+  color: #eee;
+  font-size: 30px;
+  font-family: arial;
+  font-weight: bold;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.message .text {
+  display: block;
+  width: inherit;
+  height: inherit;
+  color: #eee;
+  font-size: 30px;
+  font-family: arial;
+  font-weight: bold;
+  left: 2px;
+  top: 0px;
+  position: absolute;
+  overflow: hidden;
+  animation-name: textBlink;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+.shadow {
+  position: absolute;
+  width: inherit;
+  height: 40px;
+  overflow: hidden;
+  animation-name: shadowDown;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+.shadow .viewport {
+  position: relative;
+  width: inherit;
+  height: 200px;
+}
+
+.shadow .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  animation-name: shadowTextUp;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+}
+
+#loginsignup {
+  margin-top: 100px;
+  text-align: center;
+  animation: fadein 1s 3s;
+  animation-fill-mode: both;
+}
+
+.main-item {
+  font: arial;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.3rem;
+}
+
+@keyframes textBlink {
+  0% {
+    opacity: 1;
+    left: 2px;
+  }
+  30% {
+    opacity: 0.7;
+  }
+  70% {
+    opacity: 0.8;
+    left: -2px;
+  }
+  71% {
+    opacity: 0.8;
+    left: 0px;
+  }
+  75% {
+    opacity: 0.8;
+    left: 1px;
+  }
+  100% {
+    opacity: 7;
+    left: 0px;
+  }
+}
+
+@keyframes shadowDown {
+  0% {
+    top: 0px;
+  }
+  10% {
+    top: 20px;
+  }
+  20% {
+    top: 30px;
+  }
+  40% {
+    top: 35px;
+  }
+  60% {
+    top: 50px;
+  }
+  70% {
+    top: 20px;
+  }
+  100% {
+    top: 10px;
+  }
+}
+
+@keyframes shadowTextUp {
+  0% {
+    top: 0px;
+  }
+  10% {
+    top: -20px;
+    opacity: 0.5;
+  }
+  20% {
+    top: -30px;
+    opacity: 1;
+  }
+  40% {
+    top: -35px;
+  }
+  60% {
+    top: -50px;
+    opacity: 0.5;
+  }
+  70% {
+    top: -20px;
+  }
+  100% {
+    top: -10px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

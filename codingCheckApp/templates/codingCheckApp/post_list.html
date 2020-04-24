@@ -1,0 +1,17 @@
+{% extends 'codingCheckApp/base.html' %}
+{% block title %}問題一覧{% endblock %}
+
+{% block content %}
+<div id="post-list-wrapper">
+    <h3>問題一覧</h3>
+    <div id="posts">
+        {% for post in posts %}
+            {% if forloop.counter < 4 %}
+            <p class="post"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></p>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div style="margin-bottom: 300px;"></div>
+{% endblock %}

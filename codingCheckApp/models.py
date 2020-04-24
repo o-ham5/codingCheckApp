@@ -4,6 +4,7 @@ import datetime
 
 language_list = (("python", "python"),)
 method_list = (("equality", "="), ("estimation", "<"),)
+difficulty_list = (("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"))
 upload_date = datetime.datetime.now().strftime("codes/%Y-%m-%d")
 
 class Post(models.Model):
@@ -28,6 +29,8 @@ class Post(models.Model):
     sample_input5 = models.TextField(verbose_name='入力サンプル5', blank=True, null=True, max_length=1000)
     sample_output5 = models.TextField(verbose_name='出力サンプル5', blank=True, null=True, max_length=1000)
 
+    difficulty = models.CharField(max_length=5, choices=difficulty_list, verbose_name='難易度', default=difficulty_list[0][0])
+
     method = models.CharField(max_length=20, choices=method_list, verbose_name='判定基準', default=method_list[0][0])
 
     tolerable_error = models.FloatField(verbose_name="許容誤差", blank=True, null=True)
@@ -50,3 +53,11 @@ class SubmitCode(models.Model):
     # file = models.FileField(verbose_name='コード', upload_to=upload_date)
     file = models.FileField(verbose_name='コード')
     uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class Score(models.Model):
+
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    score = models.FloatField(verbose_name="スコア", blank=True, null=True)
+
+    

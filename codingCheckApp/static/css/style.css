@@ -92,8 +92,14 @@ div.nav {
 ========================================= */
 
 footer {
-  background-color: #999;
-  height: 100px;
+  background-color: #33383c;
+  height: 50px;
+}
+
+footer h2 {
+  color: white;
+  font-family: "Nico Moji";
+  font-size: 1.5rem;
 }
 
 /* ========================================

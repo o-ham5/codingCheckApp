@@ -4,7 +4,7 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 
-from .models import Post, method_list
+from .models import Post, method_list, Score
 from .forms import SubmitCodeForm
 
 import subprocess
@@ -75,12 +75,22 @@ def PostDetail(request, pk):
                         result_output = stderr_data
                     result_outputs.append(result_output)
 
+            # スコア更新
+            score = calc_score(post.method, judges)
+            score_model = Score.objects.filter(user=user, post=post)
+            if len(score_model) == 0:
+                Score.objects.create(user=user, post=post, score=score)
+            elif len(score_model) == 1:
+                if score_model[0].score < score:
+                    score_model[0].score = score
+                    score_model[0].save()
+
             return render(request, "codingCheckApp/submit_code.html", {'post': post, 'results': enumerate(judges), 'outputs': result_outputs, 'user': user})
     return render(request, 'codingCheckApp/post_detail.html', {'post': post, 'form': form, 'user': user,})
 
 
 @login_required
-def submit_sample(request, pk):
+def SubmitSample(request, pk):
     post = get_object_or_404(Post, pk=pk)
     form = SubmitCodeForm()
     user = request.user
@@ -109,8 +119,8 @@ def submit_sample(request, pk):
 
             # とりあえずpythonのみ
             if request.POST["language"] == "python":
-                # サブプロセスにて実行
                 
+                # サブプロセスにて実行
                 inp = inp.split("\n")
                 exe_cmd_shell = "("
                 for line in inp:
@@ -135,8 +145,36 @@ def submit_sample(request, pk):
 
             return JsonResponse(data)
 
+        inp = post.sample_input1
+        outp = post.sample_output1
+
         data = {
+            'inp': "<br>".join(inp.split("\n")).replace("\r", ""),
+            'e_output': outp,
+            'result': 'None',
             'error': True
         }
         
         return JsonResponse(data)
+
+def Ranking(request, pk):
+
+    post = get_object_or_404(Post, pk=pk)
+    scores = Score.objects.filter(post=post).order_by("-score")
+
+    return render(request, 'codingCheckApp/ranking.html', {'post': post, 'scores': enumerate(scores)})
+
+def calc_score(method, output):
+    """
+    method == "equality"なら正解率
+    method == "estimation"なら誤差平均
+    が最終的なスコアとする
+    """
+    if method == "equality":
+        acc_rate = sum([1 for b in output if b]) / len(output)
+
+    if method == "estimation":
+        pass
+
+
+    return acc_rate

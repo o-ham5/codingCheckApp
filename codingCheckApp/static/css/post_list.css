@@ -1,0 +1,22 @@
+#post-list-wrapper {
+  margin-top: 50px;
+}
+
+#post-list-wrapper h3 {
+  border-bottom: solid 2px lightblue;
+  margin-bottom: 50px;
+  padding: 0 0 5px 20px;
+}
+
+#posts {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#posts .post {
+  font-size: 1.2rem;
+}
+
+#posts .post a {
+  color: limegreen;
+}
