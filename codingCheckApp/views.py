@@ -4,20 +4,33 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 
-from .models import Post, method_list, Score
+from .models import Category, Post, method_list, Score
 from .forms import SubmitCodeForm
 
 import subprocess
 import datetime
 
 def Main(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
 
-    return render(request, 'codingCheckApp/main.html', {'posts': posts})
+    return render(request, 'codingCheckApp/main.html')
 
 @login_required
-def PostList(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
+def CategoryList(request):
+    categorys = Category.objects.all().order_by("created_date").reverse()
+
+    cat2date = {}
+    for category in categorys:
+        posts = Post.objects.filter(category=category).order_by("published_date").reverse()
+        last_updated = posts[0].published_date
+        cat2date[category] = last_updated
+
+    return render(request, 'codingCheckApp/category_list.html', {'categorys': cat2date})
+    
+
+
+@login_required
+def PostList(request, category_pk):
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
     user = request.user
 
     scores = []
@@ -29,8 +42,8 @@ def PostList(request):
     return render(request, 'codingCheckApp/post_list.html', {'posts_scores': zip(posts, scores)})
     
 @login_required
-def PostDetail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def PostDetail(request, post_pk, category_pk):
+    post = get_object_or_404(Post, pk=post_pk)
     form = SubmitCodeForm()
     user = request.user
     
@@ -46,7 +59,7 @@ def PostDetail(request, pk):
             file = request.FILES['file']
             today = str(datetime.date.today())
             today_time = str(datetime.datetime.now().time()).replace(':', '.')
-            file_path = f"codes/{user}/{pk}/{today}/{today_time}/{file.name}"
+            file_path = f"codes/{user}/{post_pk}/{today}/{today_time}/{file.name}"
 
             # {project_ROOT}/media/codes/{username}/{pk}/{today}/{now}/{filename}としてここで直接保存 (models.pyでは定義していない)
             # 例: media/codes/admin/1/2020-01-01/07.42.44.400874/tmp.py
@@ -97,8 +110,8 @@ def PostDetail(request, pk):
 
 
 @login_required
-def SubmitSample(request, pk):
-    post = get_object_or_404(Post, pk=pk)
+def SubmitSample(request, post_pk, category_pk):
+    post = get_object_or_404(Post, pk=post_pk)
     form = SubmitCodeForm()
     user = request.user
     
@@ -114,7 +127,7 @@ def SubmitSample(request, pk):
             file = request.FILES['file']
             today = str(datetime.date.today())
             today_time = str(datetime.datetime.now().time()).replace(':', '.')
-            file_path = f"codes/{user}/{pk}/example/{today}/{today_time}/{file.name}"
+            file_path = f"codes/{user}/{post_pk}/example/{today}/{today_time}/{file.name}"
 
             # {project_ROOT}/media/codes/{username}/{pk}/example/{today}/{now}/{filename}としてここで直接保存 (models.pyでは定義していない)
             # 例: media/codes/admin/1/example/2020-01-01/07.42.44.400874/tmp.py
@@ -164,9 +177,9 @@ def SubmitSample(request, pk):
         
         return JsonResponse(data)
 
-def Ranking(request, pk):
+def Ranking(request, post_pk, category_pk):
 
-    post = get_object_or_404(Post, pk=pk)
+    post = get_object_or_404(Post, pk=post_pk)
     scores = Score.objects.filter(post=post).order_by("-score")
 
     return render(request, 'codingCheckApp/ranking.html', {'post': post, 'scores': enumerate(scores)})

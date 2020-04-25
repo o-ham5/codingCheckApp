@@ -7,10 +7,20 @@ method_list = (("equality", "="), ("estimation", "<"),)
 difficulty_list = (("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5", "5"))
 upload_date = datetime.datetime.now().strftime("codes/%Y-%m-%d")
 
+class Category(models.Model):
+
+    title = models.CharField(verbose_name='カテゴリ', max_length=200)
+    created_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
 class Post(models.Model):
 
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(verbose_name='タイトル', max_length=200)
+
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, blank=True, null=True)
 
     problem_text = models.TextField(verbose_name='問題文', blank=True, null=True, max_length=1000)
     input_text = models.TextField(verbose_name='入力説明', blank=True, null=True, max_length=1000)
@@ -60,4 +70,5 @@ class Score(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     score = models.FloatField(verbose_name="スコア", blank=True, null=True)
 
-    
+    def __str__(self):
+        return self.post.title

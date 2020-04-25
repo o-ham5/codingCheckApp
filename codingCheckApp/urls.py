@@ -3,9 +3,10 @@ from . import views
 
 urlpatterns = [
     path('', views.Main, name='main'),
-    path('post_list/', views.PostList, name='post_list'),
-    path('post/<int:pk>/', views.PostDetail, name='post_detail'),
-    path('post/<int:pk>/submit_code', views.PostDetail, name='submit_code'),
-    path('post/<int:pk>/submit_sample/', views.SubmitSample, name='submit_sample'),
-    path('post/<int:pk>/ranking', views.Ranking, name='ranking'),
+    path('category_list/', views.CategoryList, name='category_list'),
+    path('category<int:category_pk>/post_list/', views.PostList, name='post_list'),
+    path('category<int:category_pk>/post<int:post_pk>/', views.PostDetail, name='post_detail'),
+    path('category<int:category_pk>/post<int:post_pk>/submit_code', views.PostDetail, name='submit_code'),
+    path('category<int:category_pk>/post<int:post_pk>/submit_sample/', views.SubmitSample, name='submit_sample'),
+    path('category<int:category_pk>/post<int:post_pk>/ranking', views.Ranking, name='ranking'),
 ]

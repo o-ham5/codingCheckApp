@@ -93,11 +93,11 @@
 <script>
     (function () {
         var mainSubmitOnClick = function (event) {
-          $("#submit-code").attr({"action": "{% url 'submit_code' pk=post.pk %}", "data-ajaxFlag": false}).submit();
+          $("#submit-code").attr({"action": "{% url 'submit_code' post_pk=post.pk category_pk=post.category.pk %}", "data-ajaxFlag": false}).submit();
         };
        
         var sampleSubmitOnClick = function (event) {
-          $("#submit-code").attr({"action": "{% url 'submit_sample' pk=post.pk %}", "data-ajaxFlag": true}).submit();
+          $("#submit-code").attr({"action": "{% url 'submit_sample' post_pk=post.pk category_pk=post.category.pk %}", "data-ajaxFlag": true}).submit();
         };
        
         var document_onready = function (event) {

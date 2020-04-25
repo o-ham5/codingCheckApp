@@ -1,0 +1,18 @@
+{% extends 'codingCheckApp/base.html' %}
+{% block title %}カテゴリー一覧{% endblock %}
+
+{% block content %}
+<div id="category-list-wrapper">
+    <h3>カテゴリー一覧</h3>
+    <div id="categorys">
+        {% for category, last_updated in categorys.items %}
+            <p class="category"><a href="{% url 'post_list' category_pk=category.pk %}">{{ category.title }}</a></p>
+            
+            <p class="last-updated">最終更新日: {{ last_updated }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+</div>
+
+<div style="margin-bottom: 300px;"></div>
+{% endblock %}

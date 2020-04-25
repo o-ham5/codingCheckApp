@@ -1,0 +1,26 @@
+#category-list-wrapper {
+  margin-top: 50px;
+}
+
+#category-list-wrapper h3 {
+  border-bottom: solid 2px lightblue;
+  margin-bottom: 50px;
+  padding: 0 0 5px 20px;
+}
+
+#categorys {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#categorys .category {
+  font-size: 1.2rem;
+}
+
+#categorys .category a {
+  color: limegreen;
+}
+
+.last-updated {
+  text-align: right;
+}

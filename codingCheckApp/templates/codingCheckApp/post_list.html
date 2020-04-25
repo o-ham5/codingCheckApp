@@ -6,7 +6,7 @@
     <h3>問題一覧</h3>
     <div id="posts">
         {% for post, score in posts_scores %}
-            <p class="post"><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></p>
+            <p class="post"><a href="{% url 'post_detail' post_pk=post.pk category_pk=post.category.pk %}">{{ post.title }}</a></p>
             {% if post.difficulty == "1" %}
                 <p class="score">　　　難易度: ★☆☆☆☆　　　あなたのスコア: {{score}}</p>
             {% elif post.difficulty == "2" %}
@@ -18,7 +18,7 @@
             {% elif post.difficulty == "5" %}
                 <p class="score">　　　難易度: ★★★★★　　　あなたのスコア: {{score}}</p>
             {% endif %}
-            <p class="ranking-link"><a href="{% url 'ranking' pk=post.pk %}">ランキングを見る</a></p>
+            <p class="ranking-link"><a href="{% url 'ranking' post_pk=post.pk category_pk=post.category.pk %}">ランキングを見る</a></p>
             <div class="clearfix"></div>
             <hr>
         {% endfor %}
