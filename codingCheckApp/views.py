@@ -31,7 +31,8 @@ def CategoryList(request):
 
 @login_required
 def PostList(request, category_pk):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date').reverse()
+    category = Category.objects.get(id=category_pk)
+    posts = Post.objects.filter(category=category, published_date__lte=timezone.now()).order_by('published_date').reverse()
     user = request.user
 
     scores = []
