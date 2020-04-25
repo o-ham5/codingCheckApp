@@ -40,7 +40,9 @@ a.link-green {
 
 body {
   font-family: "Rounded Mplus 1c", sans-serif;
-  background: url(../images/b082.jpg);
+  /* background: url(../images/b067.gif); */
+  background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+  background-color: rgba(240, 240, 255, 1);
 }
 
 #all-wrapper {
