@@ -9,6 +9,7 @@ from .forms import SubmitCodeForm
 
 import subprocess
 import datetime
+from math import sqrt, e
 
 def Main(request):
 
@@ -35,8 +36,12 @@ def PostList(request, category_pk):
 
     scores = []
     for post in posts:
-        score_model = Score.objects.filter(user=user, post=post)[0]
-        score = score_model.score
+        score_models = Score.objects.filter(user=user, post=post)
+        if score_models:
+            score_model = Score.objects.filter(user=user, post=post)[0]
+            score = score_model.score
+        else:
+            score = ""
         scores.append(score)
 
     return render(request, 'codingCheckApp/post_list.html', {'posts_scores': zip(posts, scores)})
@@ -75,7 +80,7 @@ def PostDetail(request, post_pk, category_pk):
             if request.POST["language"] == "python":
                 # サブプロセスにて実行
                 for k, inp in enumerate(inputs):
-                    inp = inp.split("\n")
+                    inp = inp.split("\r\n")
                     exe_cmd_shell = "("
                     for line in inp:
                         exe_cmd_shell += f"echo {line};"
@@ -86,17 +91,14 @@ def PostDetail(request, post_pk, category_pk):
                     result_output = stdout_data
 
                     # 結果処理
-                    if post.method == method_list[0][0]:  # equality
-                        judge = outputs[k] == result_output
-                    elif post.method == method_list[1][0]:  # estimation
-                        judge = float(outputs[k]) - float(result_output) < post.tolerable_error
+                    judge = calc_output(post.method, outputs[k], result_output)
                     judges.append(judge)
                     if not judge and stderr_data:
                         result_output = stderr_data
                     result_outputs.append(result_output)
 
             # スコア更新
-            score = calc_score(post.method, judges)
+            score = calc_total_score(post.method, judges)
             score_model = Score.objects.filter(user=user, post=post)
             if len(score_model) == 0:
                 Score.objects.create(user=user, post=post, score=score)
@@ -105,7 +107,10 @@ def PostDetail(request, post_pk, category_pk):
                     score_model[0].score = score
                     score_model[0].save()
 
-            return render(request, "codingCheckApp/submit_code.html", {'post': post, 'results': enumerate(judges), 'outputs': result_outputs, 'user': user})
+
+            inputs_html = list(map(conv_short, inputs))
+
+            return render(request, "codingCheckApp/submit_code.html", {'post': post, "inputs": inputs_html, 'results': enumerate(judges), 'outputs': result_outputs, 'user': user, 'score': score})
     return render(request, 'codingCheckApp/post_detail.html', {'post': post, 'form': form, 'user': user,})
 
 
@@ -137,11 +142,13 @@ def SubmitSample(request, post_pk, category_pk):
             inp = post.sample_input1
             outp = post.sample_output1
 
+            inp_html = conv_short(inp, union=False)
+
             # とりあえずpythonのみ
             if request.POST["language"] == "python":
                 
                 # サブプロセスにて実行
-                inp = inp.split("\n")
+                inp = inp.split("\r\n")
                 exe_cmd_shell = "("
                 for line in inp:
                     exe_cmd_shell += f"echo {line};"
@@ -154,11 +161,12 @@ def SubmitSample(request, post_pk, category_pk):
                     result = stderr_data
                 else:
                     result = stdout_data
+
                 
                 data = {
-                    'e_output': outp,
-                    'result': result,
-                    'inp': "<br>".join(inp).replace("\r", ""),
+                    'e_output': "<br>".join(outp.split("\r\n")),
+                    'result': "<br>".join(result.split("\n")),
+                    'inp': "<br>".join(inp_html),
                     'error': False,
                 }
                     
@@ -168,9 +176,11 @@ def SubmitSample(request, post_pk, category_pk):
         inp = post.sample_input1
         outp = post.sample_output1
 
+        inp_html = conv_short(inp, union=False)
+
         data = {
-            'inp': "<br>".join(inp.split("\n")).replace("\r", ""),
-            'e_output': outp,
+            'inp': "<br>".join(inp_html),
+            'e_output': "<br>".join(outp.split("\r\n")),
             'result': 'None',
             'error': True
         }
@@ -184,17 +194,63 @@ def Ranking(request, post_pk, category_pk):
 
     return render(request, 'codingCheckApp/ranking.html', {'post': post, 'scores': enumerate(scores)})
 
-def calc_score(method, output):
+
+
+def calc_output(method, e_output, r_output):
     """
     method == "equality"なら正解率
     method == "estimation"なら誤差平均
     が最終的なスコアとする
     """
     if method == "equality":
-        acc_rate = int((sum([1 for b in output if b]) / len(output)) *100)
+        e_output = e_output.split("\r\n")
+        r_output = r_output.split("\n")
+        
+        if len(e_output) != len(r_output):
+            return False
+
+        judge_list = [e_output[i] == r_output[i] for i in range(len(e_output))]
+
+        return all(judge_list)
+
 
     if method == "estimation":
-        pass
+        e_output = e_output.split("\r\n")
+        r_output = r_output.split("\n")
+        
+        if len(e_output) != len(r_output):
+            return -1
 
+        error_list = [(float(e_output[i]) - float(r_output[i]))**2 for i in range(len(e_output))]
+
+        return sqrt(sum(error_list))
+
+
+
+def calc_total_score(method, results):
+    """
+    method == "equality"なら正解率
+    method == "estimation"なら誤差平均
+    が最終的なスコアとする
+    """
+    if method == "equality":
+        acc_rate = int((sum([1 for b in results if b]) / len(results)) *100)
+
+
+    if method == "estimation":
+        error = sum(results)/len(results)
+        acc_rate = 100*e**(-error)
+
+    acc_rate = round(acc_rate, 1)
 
     return acc_rate
+
+def conv_short(inp, len_n=10, union=True):
+    inp = inp.split("\r\n")
+    if len(inp) > len_n:
+        inp = inp[:len_n]
+        inp.append("...")
+        if union:
+            inp = "\r\n".join(inp)
+
+    return inp

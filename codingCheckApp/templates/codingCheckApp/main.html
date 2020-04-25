@@ -27,8 +27,12 @@
          </div>
     </div>
     <div id="loginsignup">
-        <p><a href="{% url 'login' %}" class="main-item"><i class="fas fa-sign-in-alt"></i> LOG IN</a></p>
-        <p><a href="{% url 'accounts:signup' %}" class="main-item"><i class="fas fa-user-plus"></i> SIGN UP</a></p>
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'category_list' %}" class="main-item"> 問題を見る</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}" class="main-item"><i class="fas fa-sign-in-alt"></i> LOG IN</a></p>
+            <p><a href="{% url 'accounts:signup' %}" class="main-item"><i class="fas fa-user-plus"></i> SIGN UP</a></p>
+        {% endif %}
     </div>
 </body>
 </html>

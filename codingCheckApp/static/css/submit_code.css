@@ -1,0 +1,28 @@
+#submit-code-wrapper {
+  margin-top: 50px;
+}
+
+#submit-code-wrapper h3,
+#answer-wrapper h3 {
+  border-bottom: solid 2px lightblue;
+  margin-bottom: 50px;
+  padding: 0 0 5px 20px;
+}
+
+#scores {
+  width: 90%;
+  margin: 0 auto;
+}
+
+#scores .score {
+  font-size: 1rem;
+}
+
+#total-score {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.score-value {
+  font-size: 1.5rem;
+}

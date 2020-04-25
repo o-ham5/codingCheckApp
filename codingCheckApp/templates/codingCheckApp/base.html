@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/category_list.css' %}">
     <link rel="stylesheet" href="{% static 'css/post_list.css' %}">
     <link rel="stylesheet" href="{% static 'css/post_detail.css' %}">
+    <link rel="stylesheet" href="{% static 'css/submit_code.css' %}">
     
 </head>
 <body>
@@ -26,6 +27,9 @@
                     {% if user.is_authenticated %}
                         <div class="nav-item pl-3"><a class="user nav-link"><i class="fas fa-user"></i> {{ user.get_username }} さん</a></div>
                         <div class="nav-item pl-3"><a href="{% url 'logout' %}" class="logout nav-link"><i class="fas fa-sign-out-alt"></i> Logout</a></div>
+                        {% if user.get_username == "admin" %}
+                            <div class="nav-item pl-3"><a href="{% url 'admin:index' %}" class="admin nav-link"><i class="fas fa-pencil-alt"></i> 管理画面へ</a></div>
+                        {% endif %}
                     {% else %}
                         <div class="nav-item pl-3"><a href="{% url 'accounts:signup' %}" class="signup nav-link"><i class="fas fa-user-plus"></i> Sign up</a></div>
                         <div class="nav-item pl-3"><a href="{% url 'login' %}" class="login nav-link"><i class="fas fa-sign-in-alt"></i> Login</a></div>

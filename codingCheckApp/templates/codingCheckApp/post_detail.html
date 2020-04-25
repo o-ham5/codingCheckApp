@@ -36,7 +36,7 @@
                 
                 {% if post.output_code %}
                     <p class="post-subsubtitle">< 出力説明 ></p>
-                    <p>出力は以下のフォーマットで与えられます。</p>
+                    <p>出力は以下のフォーマットに従ってください。</p>
                     <p>{{ post.output_code | linebreaksbr }}</p>
                 {% endif %}
             </div>
@@ -168,8 +168,8 @@
                     $("#sample-e-output").empty();
 
                     const input = $('<p>', {html: '入力:<br>' + data.inp});
-                    const expected_output = $('<p>', {text: '期待する出力: ' + data.e_output});
-                    const result = $('<p>', {text: '出力結果: ' + data.result});
+                    const expected_output = $('<p>', {html: '期待する出力:<br>' + data.e_output});
+                    const result = $('<p>', {html: '出力結果:<br>' + data.result});
                     $("#sample-result").append(result);
                     $("#sample-e-output").append(expected_output);
 

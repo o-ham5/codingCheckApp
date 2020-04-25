@@ -2,41 +2,43 @@
 {% block title %}{{ post.title }} : 結果{% endblock %}
 
 {% block content %}
-<div>
+<div id="submit-code-wrapper">
     <h3>{{ post.title }} : 結果</h3>
-    {% for k, result in results %}
-        <p>テスト{{k | add:"1"}}: {{ result }}</p>
-    {% endfor %}
+    <div id="scores">
+        {% for k, result in results %}
+            <p class="score">テスト{{k | add:"1"}}: {{ result }}</p>
+        {% endfor %}
+    </div>
+    <p id="total-score">あなたのスコア: <span class="score-value">{{ score }}</span> 点！！</p>
 </div>
 
 <br><br><br>
 
-<div>
-    <h4>答え合わせ</h4>
-    <hr>
+<div id="answer-wrapper">
+    <h3>答え合わせ</h3>
     <h6>入力例１</h6>
-    <p>入力:<br>{{post.sample_input1 | linebreaksbr}}</p>
-    <p>期待する出力:<br>{{post.sample_output1}}</p>
+    <p>入力:<br>{{inputs.0 | linebreaksbr}}</p>
+    <p>期待する出力:<br>{{post.sample_output1 | linebreaksbr}}</p>
     <p>出力結果:<br>{{outputs.0 | linebreaksbr}}</p>
     <hr>
     <h6>入力例２</h6>
-    <p>入力:<br>{{post.sample_input2 | linebreaksbr}}</p>
-    <p>期待する出力:<br>{{post.sample_output2}}</p>
+    <p>入力:<br>{{inputs.1 | linebreaksbr}}</p>
+    <p>期待する出力:<br>{{post.sample_output2 | linebreaksbr}}</p>
     <p>出力結果:<br>{{outputs.1 | linebreaksbr}}</p>
     <hr>
     <h6>入力例３</h6>
-    <p>入力:<br>{{post.sample_input3 | linebreaksbr}}</p>
-    <p>期待する出力:<br>{{post.sample_output3}}</p>
+    <p>入力:<br>{{inputs.2 | linebreaksbr}}</p>
+    <p>期待する出力:<br>{{post.sample_output3 | linebreaksbr}}</p>
     <p>出力結果:<br>{{outputs.2 | linebreaksbr}}</p>
     <hr>
     <h6>入力例４</h6>
-    <p>入力:<br>{{post.sample_input4 | linebreaksbr}}</p>
-    <p>期待する出力:<br>{{post.sample_output4}}</p>
+    <p>入力:<br>{{inputs.3 | linebreaksbr}}</p>
+    <p>期待する出力:<br>{{post.sample_output4 | linebreaksbr}}</p>
     <p>出力結果:<br>{{outputs.3 | linebreaksbr}}</p>
     <hr>
     <h6>入力例５</h6>
-    <p>入力:<br>{{post.sample_input5 | linebreaksbr}}</p>
-    <p>期待する出力:<br>{{post.sample_output5}}</p>
+    <p>入力:<br>{{inputs.4 | linebreaksbr}}</p>
+    <p>期待する出力:<br>{{post.sample_output5 | linebreaksbr}}</p>
     <p>出力結果:<br>{{outputs.4 | linebreaksbr}}</p>
     <hr>
     
