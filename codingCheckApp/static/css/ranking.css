@@ -1,0 +1,19 @@
+#ranking-wrapper {
+  margin-top: 50px;
+}
+
+#ranking-wrapper h3 {
+  border-bottom: solid 2px lightblue;
+  margin-bottom: 50px;
+  padding: 0 0 5px 20px;
+}
+
+#rankings {
+  width: 60%;
+  margin: 0 auto;
+}
+
+#rankings .rank,
+#rankings .score {
+  font-size: 1.1rem;
+}

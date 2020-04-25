@@ -2,13 +2,15 @@
 {% block title %}{{ post.title }} : ランキング{% endblock %}
 
 {% block content %}
-<div>
+<div id="ranking-wrapper">
     <h3>{{ post.title }} : ランキング</h3>
-    {% for k, score in scores %}
-        <p>rank {{k | add:"1"}}: {{ score.user }}</p>
-        <p>score: {{ score.score }}</p>
-        <hr>
-    {% endfor %}
+    <div id="rankings">
+        {% for k, score in scores %}
+            <p class="rank">第{{k | add:"1"}}位:　{{ score.user }} さん</p>
+            <p class="score">スコア:　{{ score.score }} 点</p>
+            <hr>
+        {% endfor %}
+    </div>
 </div>
 
 <div style="margin-bottom: 400px;"></div>
