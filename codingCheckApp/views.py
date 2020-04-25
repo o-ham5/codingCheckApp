@@ -247,8 +247,8 @@ def calc_total_score(method, results):
     return acc_rate
 
 def conv_short(inp, len_n=10, union=True):
-    inp = inp.split("\r\n")
     if len(inp) > len_n:
+        inp = inp.split("\r\n")
         inp = inp[:len_n]
         inp.append("...")
         if union:
