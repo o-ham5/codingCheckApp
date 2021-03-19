@@ -14,7 +14,7 @@ django-heroku==0.3.1
 django-ipware==2.1.0
 django-markdownx==2.0.28
 django-sslserver==0.21
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 gunicorn==19.9.0
 idna==2.8
 Markdown==3.1.1
